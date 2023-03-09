@@ -41,7 +41,11 @@ export const AuthNavigator = () => (
 )
 
 export const MainStackNavigator = () => (
-  <Stack.Navigator>
+  <Stack.Navigator
+    headerMode="none"
+    screenOptions={{
+      headerShown: false,
+    }}>
     <Stack.Screen name={RouteKey.HomeStack} component={HomeNavigator} />
   </Stack.Navigator>
 )

@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   },
   label: {
     flex: 0.25,
-    color: '#A5A7B3',
+    color: '#212121',
     fontSize: 12,
     lineHeight: 20,
   },

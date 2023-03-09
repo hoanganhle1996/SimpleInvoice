@@ -1,17 +1,24 @@
 import React, {useCallback, useReducer} from 'react'
 import ScreenContainer from '../../components/ScreenContainer'
-import {Text, StyleSheet, View, Pressable} from 'react-native'
+import {Text, StyleSheet, View, TouchableOpacity} from 'react-native'
 import InputWithLabel from '../../components/InputWithLabel'
 import PasswordInput from '../../components/InputPassword'
 import {responsiveHeight} from '../../themes/metrics'
 import {colors} from '../../themes'
+import RouteKey from '../../navigation/RouteKey'
+import {useDispatch} from 'react-redux'
+import {appActions} from '../../store/reducers'
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 
 export const LoginScreen = () => {
+  const dispatch = useDispatch()
   const [inputValue, setInputValue] = useReducer((prev, next) => ({...prev, ...next}), {
     id: '',
     password: '',
   })
-  const onPressLogin = useCallback(() => {}, [])
+  const onPressLogin = useCallback(() => {
+    dispatch(appActions.setAppStack(RouteKey.MainStack))
+  }, [])
 
   const onChangeId = useCallback(text => {
     setInputValue({id: text})
@@ -23,14 +30,16 @@ export const LoginScreen = () => {
 
   return (
     <ScreenContainer style={styles.container}>
-      <Text style={styles.titleText}>Simple Invoice</Text>
-      <InputWithLabel onChangeText={onChangeId} value={inputValue.id} title={'Client ID'} />
-      <View style={styles.passwordSection}>
-        <PasswordInput onChangeText={onChangePassword} value={inputValue.password} title="123123" />
-      </View>
-      <Pressable style={styles.button} onPress={onPressLogin}>
-        <Text>Login</Text>
-      </Pressable>
+      <KeyboardAwareScrollView>
+        <Text style={styles.titleText}>Simple Invoice</Text>
+        <InputWithLabel onChangeText={onChangeId} value={inputValue.id} title={'Client ID'} />
+        <View style={styles.passwordSection}>
+          <PasswordInput onChangeText={onChangePassword} value={inputValue.password} title="123123" />
+        </View>
+        <TouchableOpacity style={styles.button} onPress={onPressLogin}>
+          <Text>Log123in</Text>
+        </TouchableOpacity>
+      </KeyboardAwareScrollView>
     </ScreenContainer>
   )
 }

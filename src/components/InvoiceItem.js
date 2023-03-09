@@ -1,5 +1,6 @@
 import React, {memo} from 'react'
 import {View, StyleSheet} from 'react-native'
+import {responsiveHeight} from '../themes'
 import RowItem from './RowItem'
 
 const InvoiceItem = ({reference, date, amount, description}) => (
@@ -16,6 +17,8 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 10,
     borderRadius: 10,
+    backgroundColor: '#D6D6D6',
+    marginBottom: responsiveHeight(10),
   },
 })
 
