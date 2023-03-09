@@ -13,6 +13,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		1C1FB908ECA5D589B05F247D /* libPods-SimpleInvoice-SimpleInvoiceTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00BEF8080F16906C29A5B5F9 /* libPods-SimpleInvoice-SimpleInvoiceTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		8211DA9829B9AA1800E49579 /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 8211DA9729B9AA1800E49579 /* Fonts */; };
 		8D0DBDB058593A39B564C4F2 /* libPods-SimpleInvoice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E59256141352C768E74C883 /* libPods-SimpleInvoice.a */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +47,7 @@
 		5709B34CF0A7D63546082F79 /* Pods-SimpleInvoice.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleInvoice.release.xcconfig"; path = "Target Support Files/Pods-SimpleInvoice/Pods-SimpleInvoice.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-SimpleInvoice-SimpleInvoiceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleInvoice-SimpleInvoiceTests.debug.xcconfig"; path = "Target Support Files/Pods-SimpleInvoice-SimpleInvoiceTests/Pods-SimpleInvoice-SimpleInvoiceTests.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = SimpleInvoice/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8211DA9729B9AA1800E49579 /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Fonts; path = "../node_modules/react-native-vector-icons/Fonts"; sourceTree = "<group>"; };
 		88AEB3ECA182BED58615A153 /* Pods-SimpleInvoiceCommonPods-SimpleInvoiceStg.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleInvoiceCommonPods-SimpleInvoiceStg.debug.xcconfig"; path = "Target Support Files/Pods-SimpleInvoiceCommonPods-SimpleInvoiceStg/Pods-SimpleInvoiceCommonPods-SimpleInvoiceStg.debug.xcconfig"; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-SimpleInvoice-SimpleInvoiceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleInvoice-SimpleInvoiceTests.release.xcconfig"; path = "Target Support Files/Pods-SimpleInvoice-SimpleInvoiceTests/Pods-SimpleInvoice-SimpleInvoiceTests.release.xcconfig"; sourceTree = "<group>"; };
 		A20B26F67C0591A0F93BCC04 /* Pods-SimpleInvoiceCommonPods-SimpleInvoiceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleInvoiceCommonPods-SimpleInvoiceTests.debug.xcconfig"; path = "Target Support Files/Pods-SimpleInvoiceCommonPods-SimpleInvoiceTests/Pods-SimpleInvoiceCommonPods-SimpleInvoiceTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 		13B07FAE1A68108700A75B9A /* SimpleInvoice */ = {
 			isa = PBXGroup;
 			children = (
+				8211DA9729B9AA1800E49579 /* Fonts */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -262,6 +265,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8211DA9829B9AA1800E49579 /* Fonts in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);

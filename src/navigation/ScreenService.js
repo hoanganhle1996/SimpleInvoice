@@ -2,6 +2,7 @@ import RouteKey from './RouteKey'
 import {LoginScreen, SignUpScreen} from '../screens'
 // Screen Import
 import HomeScreen from '../screens/HomeComponent/HomeScreen'
+import CreateInvoiceScreen from '../screens/CreateInvoiceComponent/CreateInvoiceScreen'
 
 export const screenMatch = screen => {
   switch (screen) {
@@ -12,6 +13,8 @@ export const screenMatch = screen => {
       return SignUpScreen
     case RouteKey.HomeScreen:
       return HomeScreen
+    case RouteKey.CreateInvoiceScreen:
+      return CreateInvoiceScreen
     default:
       return ''
   }

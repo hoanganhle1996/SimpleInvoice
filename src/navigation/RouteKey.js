@@ -4,6 +4,7 @@ export default {
   LoginScreen: 'LoginScreen',
   SignUpScreen: 'SignUpScreen',
   HomeScreen: 'HomeScreen',
+  CreateInvoiceScreen: 'CreateInvoiceScreen',
 
   /** Stack */
   AuthStack: 'AuthStack',
