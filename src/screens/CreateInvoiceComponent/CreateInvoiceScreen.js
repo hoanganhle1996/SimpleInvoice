@@ -6,8 +6,16 @@ import {responsiveHeight} from '../../themes/metrics'
 import {colors} from '../../themes'
 import RNDateTimePicker from '@react-native-community/datetimepicker'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
+import {createInvoice} from '../../services/api/api'
+import dayjs from 'dayjs'
+import {useDispatch} from 'react-redux'
+import {useNavigation} from '@react-navigation/native'
+import {appActions} from '../../store/reducers'
+import {STATUS_SUCCESS} from '../../constants'
 
 const CreateInvoiceScreen = () => {
+  const dispatch = useDispatch()
+  const navigation = useNavigation()
   const [inputValue, setInputValue] = useReducer((prev, next) => ({...prev, ...next}), {
     reference: '',
     amount: '',
@@ -19,28 +27,57 @@ const CreateInvoiceScreen = () => {
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate
     setDate(currentDate)
-    setInputValue({date: currentDate.toLocaleString()})
+    setInputValue({date: event.timeStamp})
   }
 
-  const onPressCreate = useCallback(() => {}, [])
-
-  const onChangeId = useCallback(text => {
-    setInputValue({id: text})
-  }, [])
+  const onPressCreate = useCallback(async () => {
+    const body = {
+      reference: inputValue.reference,
+      date: dayjs(date).format('YYYY-MM-DD'),
+      amount: inputValue.amount,
+      description: inputValue.description,
+    }
+    const res = await createInvoice(body)
+    if (res?.status === STATUS_SUCCESS) {
+      dispatch(appActions.setIsFromCreateScreen(true))
+      navigation.goBack()
+      setTimeout(() => {
+        alert('Create Successfully')
+      }, 500)
+    }
+  }, [inputValue])
 
   return (
     <ScreenContainer style={styles.container}>
       <KeyboardAwareScrollView showsVerticalScrollIndicator={false} style={styles.keyboardView}>
         <Text style={styles.titleText}>Create Invoice</Text>
-        <InputWithLabel onChangeText={onChangeId} value={inputValue.id} title={'Reference'} />
-        <InputWithLabel onChangeText={onChangeId} value={inputValue.id} title={'Amount'} />
+        <InputWithLabel
+          onChangeText={text => {
+            setInputValue({reference: text})
+          }}
+          value={inputValue.id}
+          title={'Reference'}
+        />
+        <InputWithLabel
+          onChangeText={text => {
+            setInputValue({amount: text})
+          }}
+          value={inputValue.id}
+          title={'Amount'}
+        />
         <View style={styles.dueDateSection}>
           <Text style={styles.title}>Due Date</Text>
           <View style={styles.dateSection}>
-            <RNDateTimePicker testID="dateTimePicker" value={date} onChange={onChange} />
+            <RNDateTimePicker mode={'date'} value={date} onChange={onChange} />
           </View>
         </View>
-        <InputWithLabel onChangeText={onChangeId} value={inputValue.id} title={'Description'} />
+        <InputWithLabel
+          onChangeText={text => {
+            setInputValue({description: text})
+          }}
+          value={inputValue.id}
+          title={'Description'}
+        />
         <TouchableOpacity style={styles.button} onPress={onPressCreate}>
           <Text>Create</Text>
         </TouchableOpacity>

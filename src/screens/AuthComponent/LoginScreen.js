@@ -5,20 +5,20 @@ import InputWithLabel from '../../components/InputWithLabel'
 import PasswordInput from '../../components/InputPassword'
 import {responsiveHeight} from '../../themes/metrics'
 import {colors} from '../../themes'
-import RouteKey from '../../navigation/RouteKey'
 import {useDispatch} from 'react-redux'
-import {appActions} from '../../store/reducers'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
+import {userActions} from '../../store/reducers'
 
 export const LoginScreen = () => {
   const dispatch = useDispatch()
   const [inputValue, setInputValue] = useReducer((prev, next) => ({...prev, ...next}), {
-    id: '',
-    password: '',
+    id: 'oO8BMTesSg9Vl3_jAyKpbOd2fIEa',
+    password: '0Exp4dwqmpON_ezyhfm0o_Xkowka',
   })
+
   const onPressLogin = useCallback(() => {
-    dispatch(appActions.setAppStack(RouteKey.MainStack))
-  }, [])
+    dispatch(userActions.userLogin({id: inputValue.id, password: inputValue.password}))
+  }, [inputValue])
 
   const onChangeId = useCallback(text => {
     setInputValue({id: text})
@@ -34,10 +34,10 @@ export const LoginScreen = () => {
         <Text style={styles.titleText}>Simple Invoice</Text>
         <InputWithLabel onChangeText={onChangeId} value={inputValue.id} title={'Client ID'} />
         <View style={styles.passwordSection}>
-          <PasswordInput onChangeText={onChangePassword} value={inputValue.password} title="123123" />
+          <PasswordInput onChangeText={onChangePassword} value={inputValue.password} title="Client Secret" />
         </View>
         <TouchableOpacity style={styles.button} onPress={onPressLogin}>
-          <Text>Log123in</Text>
+          <Text>Login</Text>
         </TouchableOpacity>
       </KeyboardAwareScrollView>
     </ScreenContainer>
