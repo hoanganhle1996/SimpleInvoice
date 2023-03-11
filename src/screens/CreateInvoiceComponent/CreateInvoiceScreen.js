@@ -1,6 +1,6 @@
 import React, {useCallback, useReducer, useState} from 'react'
 import ScreenContainer from '../../components/ScreenContainer'
-import {Text, StyleSheet, TouchableOpacity, View} from 'react-native'
+import {Text, StyleSheet, TouchableOpacity, View, Platform} from 'react-native'
 import InputWithLabel from '../../components/InputWithLabel'
 import {responsiveHeight} from '../../themes/metrics'
 import {colors} from '../../themes'
@@ -19,15 +19,19 @@ const CreateInvoiceScreen = () => {
   const [inputValue, setInputValue] = useReducer((prev, next) => ({...prev, ...next}), {
     reference: '',
     amount: '',
-    date: '',
+    date: dayjs().unix(),
     description: '',
   })
-  const [date, setDate] = useState(new Date(1598051730000))
+  const [date, setDate] = useState(new Date())
+  const [isShow, setIsShow] = useState(false)
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate
     setDate(currentDate)
     setInputValue({date: event.timeStamp})
+    if (Platform.OS !== 'ios') {
+      setIsShow(false)
+    }
   }
 
   const onPressCreate = useCallback(async () => {
@@ -68,7 +72,17 @@ const CreateInvoiceScreen = () => {
         <View style={styles.dueDateSection}>
           <Text style={styles.title}>Due Date</Text>
           <View style={styles.dateSection}>
-            <RNDateTimePicker mode={'date'} value={date} onChange={onChange} />
+            {Platform.OS !== 'ios' ? (
+              <TouchableOpacity
+                onPress={() => {
+                  setIsShow(!isShow)
+                }}>
+                <Text>{dayjs(date).format('YYYY-MM-DD')}</Text>
+                {isShow && <RNDateTimePicker mode={'date'} value={date} onChange={onChange} />}
+              </TouchableOpacity>
+            ) : (
+              <RNDateTimePicker mode={'date'} value={date} onChange={onChange} />
+            )}
           </View>
         </View>
         <InputWithLabel

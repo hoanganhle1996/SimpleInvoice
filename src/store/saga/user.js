@@ -41,16 +41,6 @@ function* userLoginSaga(action) {
   }
 }
 
-function* userSignUpSaga(action) {
-  try {
-    yield put(appActions.setShowGlobalIndicator(true))
-  } catch (e) {
-    Toast.error(e.message)
-  } finally {
-    yield put(appActions.setShowGlobalIndicator(false))
-  }
-}
-
 function* updateUserInfo(action) {
   try {
     const {onSuccess} = action?.payload
@@ -68,6 +58,5 @@ function* updateUserInfo(action) {
 
 export default [
   takeLatest(userActions.userLogin.type, userLoginSaga),
-  takeLatest(userActions.userSignUp.type, userSignUpSaga),
   takeLatest(userActions.updateUserInfo.type, updateUserInfo),
 ]

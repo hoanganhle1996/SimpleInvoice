@@ -19,7 +19,7 @@ default_platform(:ios)
 
 platform :ios do
 
-  owner_name = "Saigontechnology" #Replace owner name here
+  owner_name = "DemoApp" #Replace owner name here
   my_app = "ReactNativeBaseIos" #Replace my app here
   platform = 'ios'
 

@@ -20,20 +20,14 @@ async function axiosAPI({url, method, data, config}) {
     data,
     headers: {...config},
   })
-    .then(response => {
-      console.log('response', response)
-      return {
-        ...response.data,
-        status: response.status,
-      }
-    })
-    .catch(error => {
-      console.log('error', error)
-      return {
-        data: error?.response?.data,
-        status: error?.response?.status,
-      }
-    })
+    .then(response => ({
+      ...response.data,
+      status: response.status,
+    }))
+    .catch(error => ({
+      data: error?.response?.data,
+      status: error?.response?.status,
+    }))
 }
 
 export function getRequest(url, config) {

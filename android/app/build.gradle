@@ -153,7 +153,7 @@ android {
     }
     
     defaultConfig {
-        applicationId project.env.get("APP_ID")
+        applicationId "com.saigontechnolgy.simpleinvoice"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

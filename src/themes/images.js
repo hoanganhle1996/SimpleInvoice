@@ -2,7 +2,5 @@
  * @flow
  */
 
-const Images = {
-  sts: require('./../assets/images/sts.png'),
-}
+const Images = {}
 export default Images
