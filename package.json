@@ -20,7 +20,8 @@
     "generatefonts": "node scripts/fonts",
     "plop": "plop",
     "codepush": "bash ./scripts/codepush.sh",
-    "build": "bash ./scripts/build-app.sh"
+    "build": "bash ./scripts/build-app.sh",
+    "detox": "detox test --configuration ios.sim.debug"
   },
   "dependencies": {
     "@react-native-community/datetimepicker": "^6.7.5",
@@ -69,5 +70,19 @@
   },
   "jest": {
     "preset": "react-native"
+  },
+  "detox": {
+    "configurations": {
+      "ios.sim.debug": {
+        "binaryPath": "ios/build/Build/Products/Debug-iphonesimulator/BaseDev.app",
+        "build": "xcodebuild -workspace ios/SimpleInvoice.xcworkspace -scheme SimpleInvoice -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
+        "type": "ios.simulator",
+        "device": {
+          "type": "iPhone 11"
+        },
+        "name": "iPhone 11"
+      }
+    },
+    "test-runner": "jest"
   }
 }

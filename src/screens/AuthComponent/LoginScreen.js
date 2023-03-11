@@ -12,8 +12,8 @@ import {userActions} from '../../store/reducers'
 export const LoginScreen = () => {
   const dispatch = useDispatch()
   const [inputValue, setInputValue] = useReducer((prev, next) => ({...prev, ...next}), {
-    id: 'oO8BMTesSg9Vl3_jAyKpbOd2fIEa',
-    password: '0Exp4dwqmpON_ezyhfm0o_Xkowka',
+    id: '',
+    password: '',
   })
 
   const onPressLogin = useCallback(() => {
@@ -32,11 +32,21 @@ export const LoginScreen = () => {
     <ScreenContainer style={styles.container}>
       <KeyboardAwareScrollView>
         <Text style={styles.titleText}>Simple Invoice</Text>
-        <InputWithLabel onChangeText={onChangeId} value={inputValue.id} title={'Client ID'} />
+        <InputWithLabel
+          testID="client-id-input"
+          onChangeText={onChangeId}
+          value={inputValue.id}
+          title={'Client ID'}
+        />
         <View style={styles.passwordSection}>
-          <PasswordInput onChangeText={onChangePassword} value={inputValue.password} title="Client Secret" />
+          <PasswordInput
+            testID="client-secret-input"
+            onChangeText={onChangePassword}
+            value={inputValue.password}
+            title="Client Secret"
+          />
         </View>
-        <TouchableOpacity style={styles.button} onPress={onPressLogin}>
+        <TouchableOpacity testID="login-button" style={styles.button} onPress={onPressLogin}>
           <Text>Login</Text>
         </TouchableOpacity>
       </KeyboardAwareScrollView>

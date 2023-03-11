@@ -13,6 +13,7 @@ const TextInputView = forwardRef((props, ref) => {
     multiline = false,
     secureTextEntry,
     customStyle,
+    testID,
     ...rest
   } = props
 
@@ -31,6 +32,7 @@ const TextInputView = forwardRef((props, ref) => {
   return (
     <View style={[styles.container, inputStylesContainer]}>
       <TextInput
+        testID={testID}
         ref={inputRef}
         value={value}
         style={[styles.textInputStyle, customStyle]}
