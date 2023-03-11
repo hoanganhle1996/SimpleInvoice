@@ -45,6 +45,7 @@ const HomeScreen = () => {
     dispatch(
       userActions.updateUserInfo({
         onSuccess: () => {
+          // only call when have token from user profile
           onFetchListInvoice({})
         },
       }),
@@ -52,12 +53,15 @@ const HomeScreen = () => {
   }, [dispatch, onFetchListInvoice])
 
   useEffect(() => {
+    // Calling api again to refresh new data after created
+    // To ensure search, sort, filter work normal with new item
     if (isFromCreate) {
       onFetchListInvoice({})
       dispatch(appActions.setIsFromCreateScreen(false))
     }
   }, [isFocused, isFromCreate])
 
+  // Fetch list invoices
   const onFetchListInvoice = useCallback(
     params => {
       dispatch(appActions.getInvoiceListHandle(params))
@@ -65,6 +69,7 @@ const HomeScreen = () => {
     [dispatch],
   )
 
+  // navigate to create invoice screen
   const onCreateInvoice = useCallback(() => {
     navigate(RouteKey.CreateInvoiceScreen)
   }, [])
@@ -76,12 +81,14 @@ const HomeScreen = () => {
     )
   }
 
+  // Handle press radio button
   function onPressRadioButton(radioButtonsArray) {
     const selectedObj = radioButtonsArray.find(obj => obj.selected === true)
     setRadioButtons(radioButtonsArray)
     dispatch(appActions.getInvoiceListHandle({status: selectedObj.label}))
   }
 
+  // Handle search items
   const onChangeSearch = useCallback(
     text => {
       setSearchText(text)
@@ -90,6 +97,7 @@ const HomeScreen = () => {
     [onFetchListInvoice],
   )
 
+  // Handle ordering items
   const onChangeOrder = useCallback(
     type => {
       onFetchListInvoice({ordering: type})

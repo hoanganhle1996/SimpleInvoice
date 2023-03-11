@@ -25,6 +25,7 @@ const CreateInvoiceScreen = () => {
   const [date, setDate] = useState(new Date())
   const [isShow, setIsShow] = useState(false)
 
+  // handle change date field
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate
     setDate(currentDate)
@@ -34,6 +35,7 @@ const CreateInvoiceScreen = () => {
     }
   }
 
+  // Handle create item
   const onPressCreate = useCallback(async () => {
     const body = {
       reference: inputValue.reference,

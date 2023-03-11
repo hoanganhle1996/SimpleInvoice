@@ -33,20 +33,23 @@ export const LoginScreen = () => {
       <KeyboardAwareScrollView>
         <Text style={styles.titleText}>Simple Invoice</Text>
         <InputWithLabel
-          testID="client-id-input"
+          testID="client-id-input" // use for detox test
           onChangeText={onChangeId}
           value={inputValue.id}
           title={'Client ID'}
         />
         <View style={styles.passwordSection}>
           <PasswordInput
-            testID="client-secret-input"
+            testID="client-secret-input" // use for detox test
             onChangeText={onChangePassword}
             value={inputValue.password}
             title="Client Secret"
           />
         </View>
-        <TouchableOpacity testID="login-button" style={styles.button} onPress={onPressLogin}>
+        <TouchableOpacity
+          testID="login-button" // use for detox test
+          style={styles.button}
+          onPress={onPressLogin}>
           <Text>Login</Text>
         </TouchableOpacity>
       </KeyboardAwareScrollView>
