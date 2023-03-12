@@ -1,4 +1,4 @@
-package com.saigontechnolgy.simpleinvoice.newarchitecture;
+package com.simpleinvoice.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.saigontechnolgy.simpleinvoice.BuildConfig;
-import com.saigontechnolgy.simpleinvoice.newarchitecture.components.MainComponentsRegistry;
-import com.saigontechnolgy.simpleinvoice.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.simpleinvoice.BuildConfig;
+import com.simpleinvoice.newarchitecture.components.MainComponentsRegistry;
+import com.simpleinvoice.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 

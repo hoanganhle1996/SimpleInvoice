@@ -1,4 +1,4 @@
-package com.saigontechnolgy.simpleinvoice.newarchitecture.components;
+package com.simpleinvoice.newarchitecture.components;
 
 import com.facebook.jni.HybridData;
 import com.facebook.proguard.annotations.DoNotStrip;

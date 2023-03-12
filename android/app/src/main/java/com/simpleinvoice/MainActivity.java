@@ -1,4 +1,4 @@
-package com.saigontechnolgy.simpleinvoice;
+package com.simpleinvoice;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
