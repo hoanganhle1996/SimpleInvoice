@@ -35,7 +35,7 @@ function* userLoginSaga(action) {
     }
   } catch (e) {
     Toast.error(e.message)
-    yield put(appActions.setAppStack(RouteKey.AuthStack))
+    yield put(appActions.setAppStack(RouteKey.MainStack))
   } finally {
     yield put(appActions.setShowGlobalIndicator(false))
   }

@@ -2,6 +2,7 @@ import React from 'react'
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
 import {screenMatch, optionsMatch} from './ScreenService'
 import RouteKey from './RouteKey'
+import MainTabNavigation from './MainTabNavigator'
 
 export const componentMatch = stackName => {
   switch (stackName) {
@@ -15,13 +16,16 @@ export const componentMatch = stackName => {
 const Stack = createNativeStackNavigator()
 
 export const HomeNavigator = () => (
-  <Stack.Navigator>
+  <Stack.Navigator
+    headerMode="none"
+    screenOptions={{
+      headerShown: false,
+    }}>
     <Stack.Screen
       name={RouteKey.HomeScreen}
       component={screenMatch(RouteKey.HomeScreen)}
       options={optionsMatch(RouteKey.HomeScreen)}
     />
-    <Stack.Screen name={RouteKey.CreateInvoiceScreen} component={screenMatch(RouteKey.CreateInvoiceScreen)} />
   </Stack.Navigator>
 )
 
@@ -41,6 +45,13 @@ export const MainStackNavigator = () => (
     screenOptions={{
       headerShown: false,
     }}>
-    <Stack.Screen name={RouteKey.HomeStack} component={HomeNavigator} />
+    <Stack.Screen name={RouteKey.HomeStack} component={MainTabNavigation} />
+    <Stack.Screen
+      name={RouteKey.DetailScreen}
+      component={screenMatch(RouteKey.DetailScreen)}
+      screenOptions={{
+        headerShown: false,
+      }}
+    />
   </Stack.Navigator>
 )

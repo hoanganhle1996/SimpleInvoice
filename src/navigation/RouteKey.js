@@ -1,9 +1,13 @@
 export default {
   /** Screen */
+  DetailScreen: 'DetailScreen',
   SplashScreen: 'SplashScreen',
   LoginScreen: 'LoginScreen',
-  HomeScreen: 'HomeScreen',
+  HomeScreen: 'Home',
   CreateInvoiceScreen: 'CreateInvoiceScreen',
+  CoinScreen: 'Coin',
+  JobScreen: 'Job',
+  MenuScreen: 'Menu',
 
   /** Stack */
   AuthStack: 'AuthStack',

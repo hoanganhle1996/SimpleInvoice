@@ -11,3 +11,4 @@ export const SCOPE = 'openid'
 export const USER_NAME = 'dung+octopus4@101digital.io'
 export const PASSWORD = 'Abc@123456'
 export const STATUS_SUCCESS = 201
+export const ARRAY_BUTTON = ['Ongoing', 'Available', 'History']

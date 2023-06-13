@@ -1,168 +1,194 @@
-import React, {useCallback, useEffect, useState} from 'react'
+import React, {useCallback, useState} from 'react'
 import ScreenContainer from '../../components/ScreenContainer'
-import SearchBar from '../../components/SearchBar'
-import {StyleSheet, View, TouchableOpacity, Button} from 'react-native'
-import OcticonsIcon from 'react-native-vector-icons/Octicons'
-import {responsiveHeight} from '../../themes'
-import {FlatList} from 'react-native-gesture-handler'
-import InvoiceItem from '../../components/InvoiceItem'
-import {navigate} from '../../navigation/NavigationService'
+import {StyleSheet, View, Text, TouchableOpacity, SafeAreaView} from 'react-native'
+import {responsiveHeight, colors, responsiveWidth} from '../../themes'
 import RouteKey from '../../navigation/RouteKey'
-import {useDispatch, useSelector} from 'react-redux'
-import {userActions, appActions} from '../../store/reducers'
-import {getInvoiceList, getIsCreateScreen} from '../../store/selectors'
-import RadioGroup from 'react-native-radio-buttons-group'
-import {useIsFocused} from '@react-navigation/native'
+import HeaderTab from '../../components/HeaderTab'
+import {ARRAY_BUTTON} from '../../constants/index'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import EvilIcons from 'react-native-vector-icons/EvilIcons'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import {navigate} from '../../navigation/NavigationService'
+import Circle from '../../components/Circle'
 
 const HomeScreen = () => {
-  const dispatch = useDispatch()
-  const isFocused = useIsFocused()
-  const [textSearch, setSearchText] = useState('')
-  const [radioButtons, setRadioButtons] = useState([
-    {
-      id: '1', // acts as primary key, should be unique and non-empty string
-      label: 'Paid',
-      value: 'Paid',
-    },
-    {
-      id: '2', // acts as primary key, should be unique and non-empty string
-      label: 'Due',
-      value: 'Due',
-    },
-    {
-      id: '3',
-      label: 'Overdue',
-      value: 'Overdue',
-    },
-  ])
+  const [numbPress, setNumbPress] = useState(0)
 
-  const invoiceData = useSelector(getInvoiceList) || []
-  const isFromCreate = useSelector(getIsCreateScreen) || false
-
-  const data = invoiceData?.data ?? []
-
-  useEffect(() => {
-    dispatch(
-      userActions.updateUserInfo({
-        onSuccess: () => {
-          // only call when have token from user profile
-          onFetchListInvoice({})
-        },
-      }),
-    )
-  }, [dispatch, onFetchListInvoice])
-
-  useEffect(() => {
-    // Calling api again to refresh new data after created
-    // To ensure search, sort, filter work normal with new item
-    if (isFromCreate) {
-      onFetchListInvoice({})
-      dispatch(appActions.setIsFromCreateScreen(false))
-    }
-  }, [isFocused, isFromCreate])
-
-  // Fetch list invoices
-  const onFetchListInvoice = useCallback(
-    params => {
-      dispatch(appActions.getInvoiceListHandle(params))
-    },
-    [dispatch],
-  )
-
-  // navigate to create invoice screen
-  const onCreateInvoice = useCallback(() => {
-    navigate(RouteKey.CreateInvoiceScreen)
+  const onPressTab = useCallback(index => {
+    setNumbPress(index)
   }, [])
 
-  const renderItem = ({item}) => {
-    const {referenceNo, dueDate, balanceAmount, description} = item
-    return (
-      <InvoiceItem reference={referenceNo} date={dueDate} amount={balanceAmount} description={description} />
-    )
-  }
-
-  // Handle press radio button
-  function onPressRadioButton(radioButtonsArray) {
-    const selectedObj = radioButtonsArray.find(obj => obj.selected === true)
-    setRadioButtons(radioButtonsArray)
-    dispatch(appActions.getInvoiceListHandle({status: selectedObj.label}))
-  }
-
-  // Handle search items
-  const onChangeSearch = useCallback(
-    text => {
-      setSearchText(text)
-      onFetchListInvoice({keyword: text})
-    },
-    [onFetchListInvoice],
-  )
-
-  // Handle ordering items
-  const onChangeOrder = useCallback(
-    type => {
-      onFetchListInvoice({ordering: type})
-    },
-    [onFetchListInvoice],
-  )
-
   return (
-    <ScreenContainer style={styles.container}>
-      <View style={styles.searchSection}>
-        <SearchBar value={textSearch} onChangeText={onChangeSearch} style={styles.searchBar} />
-        <TouchableOpacity onPress={onCreateInvoice} hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}>
-          <OcticonsIcon name="diff-added" size={25} />
+    <SafeAreaView style={styles.wrapperStyle}>
+      <Text style={styles.headerText}>Jobs</Text>
+
+      <ScreenContainer style={styles.container}>
+        <View style={styles.headerTab}>
+          {ARRAY_BUTTON.map((el, index) => {
+            const isSelected = numbPress === index
+            return (
+              <View style={styles.headerItem}>
+                <HeaderTab
+                  onPress={() => {
+                    onPressTab(index)
+                  }}
+                  title={el}
+                  style={[
+                    styles.headerTabItem,
+                    {backgroundColor: isSelected ? colors.primaryBackground : colors.gallery},
+                  ]}
+                  styleText={{
+                    color: isSelected ? colors.white : colors.grayText,
+                    fontWeight: isSelected ? '700' : '300',
+                  }}
+                />
+              </View>
+            )
+          })}
+        </View>
+        <TouchableOpacity
+          onPress={() => {
+            navigate(RouteKey.DetailScreen)
+          }}
+          activeOpacity={0.8}
+          style={styles.card}>
+          <View style={styles.cardUpperSection}>
+            <Text style={styles.titleText}>Expo Hall 7</Text>
+            <View>
+              <View style={styles.rightUpperSection}>
+                <FontAwesome name={'dollar'} color={colors.white} size={15} />
+                <Text style={styles.moneyText}>65.00</Text>
+              </View>
+              <View style={[styles.rightUpperSection, {marginTop: responsiveHeight(5)}]}>
+                <EvilIcons name={'clock'} color={colors.white} size={15} />
+                <Text style={styles.timeText}>in 7 months</Text>
+              </View>
+            </View>
+          </View>
+          <View style={styles.descriptionSection}>
+            <View style={styles.row}>
+              <MaterialCommunityIcons name={'human-male'} size={25} color={colors.blue} />
+              <Text style={styles.descriptionTitle}>
+                Expo Hall 7 <Text style={styles.subDescriptionTitle}>- Expo Hall 7, Singapore </Text>
+              </Text>
+            </View>
+            <View style={styles.line} />
+            <View style={styles.row}>
+              <Circle style={{marginLeft: responsiveWidth(5), backgroundColor: colors.blue}} />
+              <Text
+                style={[
+                  styles.descriptionTitle,
+                  {marginLeft: responsiveWidth(5), marginTop: responsiveHeight(-2)},
+                ]}>
+                Expo Hall 7{' '}
+                <Text style={styles.subDescriptionTitle}>
+                  - 14, Scotts Road, Orchard, Singapore, Singapore, 228213
+                </Text>
+              </Text>
+            </View>
+          </View>
         </TouchableOpacity>
-      </View>
-      <View>
-        <RadioGroup containerStyle={styles.row} radioButtons={radioButtons} onPress={onPressRadioButton} />
-      </View>
-      <View style={styles.sortSection}>
-        <Button
-          onPress={() => {
-            onChangeOrder('ASCENDING')
-          }}
-          title="ASCENDING"
-        />
-        <Button
-          onPress={() => {
-            onChangeOrder('DESCENDING')
-          }}
-          title="DESCENDING"
-        />
-      </View>
-      <View>
-        <FlatList
-          contentInset={{bottom: 20}}
-          data={data}
-          renderItem={renderItem}
-          keyExtractor={(item, index) => `${item?.invoiceId}`}
-          showsVerticalScrollIndicator={false}
-        />
-      </View>
-    </ScreenContainer>
+      </ScreenContainer>
+    </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
+  wrapperStyle: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
   container: {
     padding: 10,
+    backgroundColor: 'white',
   },
-  searchSection: {
+  headerTab: {
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'space-between',
+    marginTop: responsiveHeight(10),
   },
-  sortSection: {
+  headerItem: {
+    flex: 1,
+  },
+  card: {
+    width: '100%',
+    backgroundColor: colors.primaryBackground,
+    borderRadius: responsiveHeight(5),
+    marginTop: responsiveHeight(30),
+    padding: 20,
+  },
+  headerTabItem: {
+    width: '90%',
+  },
+  rightUpperSection: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: responsiveHeight(10),
-    justifyContent: 'space-around',
+    justifyContent: 'flex-end',
   },
-  searchBar: {
-    width: '90%',
+  titleText: {
+    fontSize: 22,
+    fontWeight: '600',
+    color: colors.white,
+  },
+  moneyText: {
+    fontSize: 20,
+    color: colors.white,
+  },
+  timeText: {
+    fontSize: 15,
+    color: colors.grayText,
+    fontWeight: '500',
+    marginLeft: responsiveWidth(5),
+  },
+  cardUpperSection: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   row: {
     flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    alignContent: 'flex-start',
+  },
+  descriptionTitle: {
+    fontSize: 20,
+    fontWeight: '600',
+    color: colors.white,
+    marginLeft: responsiveWidth(3),
+  },
+  subDescriptionTitle: {
+    fontSize: 18,
+    color: colors.silver,
+    fontWeight: '300',
+  },
+  descriptionSection: {
+    marginTop: responsiveHeight(20),
+  },
+  line: {
+    width: responsiveWidth(3),
+    height: responsiveHeight(35),
+    backgroundColor: colors.blue,
+    marginLeft: responsiveWidth(10),
+    marginVertical: responsiveHeight(8),
+  },
+  circle: {
+    width: responsiveWidth(18),
+    aspectRatio: 1,
+    borderRadius: 60,
+    backgroundColor: colors.blue,
+    marginLeft: responsiveWidth(2),
+  },
+  header: {
+    width: '100%',
+    height: responsiveHeight(100),
+    backgroundColor: 'white',
+    justifyContent: 'flex-end',
+    paddingHorizontal: responsiveWidth(15),
+  },
+  headerText: {
+    fontSize: responsiveHeight(30),
+    fontWeight: '600',
+    paddingHorizontal: responsiveWidth(15),
   },
 })
 

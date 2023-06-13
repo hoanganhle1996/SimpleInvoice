@@ -20,3 +20,7 @@ export function popToTop() {
 export function replace(name, params) {
   navigationRef.current?.dispatch(StackActions.replace(name, params))
 }
+
+export function goBack() {
+  navigationRef.current?.goBack()
+}

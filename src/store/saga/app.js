@@ -12,7 +12,7 @@ function* getAppSettingSaga() {
       throw new Error('Token does not existed!')
     }
   } catch (e) {
-    yield put(appActions.setAppStack(RouteKey.AuthStack))
+    yield put(appActions.setAppStack(RouteKey.MainStack))
   } finally {
   }
 }
