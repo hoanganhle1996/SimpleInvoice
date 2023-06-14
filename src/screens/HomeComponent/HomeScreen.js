@@ -10,6 +10,7 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import {navigate} from '../../navigation/NavigationService'
 import Circle from '../../components/Circle'
+import LinearGradient from 'react-native-linear-gradient'
 
 const HomeScreen = () => {
   const [numbPress, setNumbPress] = useState(0)
@@ -21,74 +22,78 @@ const HomeScreen = () => {
   return (
     <SafeAreaView style={styles.wrapperStyle}>
       <Text style={styles.headerText}>Jobs</Text>
-
-      <ScreenContainer style={styles.container}>
-        <View style={styles.headerTab}>
-          {ARRAY_BUTTON.map((el, index) => {
-            const isSelected = numbPress === index
-            return (
-              <View style={styles.headerItem}>
-                <HeaderTab
-                  onPress={() => {
-                    onPressTab(index)
-                  }}
-                  title={el}
-                  style={[
-                    styles.headerTabItem,
-                    {backgroundColor: isSelected ? colors.primaryBackground : colors.gallery},
-                  ]}
-                  styleText={{
-                    color: isSelected ? colors.white : colors.grayText,
-                    fontWeight: isSelected ? '700' : '300',
-                  }}
-                />
-              </View>
-            )
-          })}
-        </View>
-        <TouchableOpacity
-          onPress={() => {
-            navigate(RouteKey.DetailScreen)
-          }}
-          activeOpacity={0.8}
-          style={styles.card}>
-          <View style={styles.cardUpperSection}>
-            <Text style={styles.titleText}>Expo Hall 7</Text>
-            <View>
-              <View style={styles.rightUpperSection}>
-                <FontAwesome name={'dollar'} color={colors.white} size={15} />
-                <Text style={styles.moneyText}>65.00</Text>
-              </View>
-              <View style={[styles.rightUpperSection, {marginTop: responsiveHeight(5)}]}>
-                <EvilIcons name={'clock'} color={colors.white} size={15} />
-                <Text style={styles.timeText}>in 7 months</Text>
-              </View>
-            </View>
+      <LinearGradient
+        colors={['transparent', 'transparent', '#ffffff', '#ffffff', '#ffffff', '#7F7F7F']}
+        locations={[0, 0.35, 0.35, 0.65, 0.65]}
+        style={styles.linearGradient}>
+        <ScreenContainer style={styles.container}>
+          <View style={styles.headerTab}>
+            {ARRAY_BUTTON.map((el, index) => {
+              const isSelected = numbPress === index
+              return (
+                <View style={styles.headerItem}>
+                  <HeaderTab
+                    onPress={() => {
+                      onPressTab(index)
+                    }}
+                    title={el}
+                    style={[
+                      styles.headerTabItem,
+                      {backgroundColor: isSelected ? colors.primaryBackground : colors.gallery},
+                    ]}
+                    styleText={{
+                      color: isSelected ? colors.white : colors.grayText,
+                      fontWeight: isSelected ? '600' : '300',
+                    }}
+                  />
+                </View>
+              )
+            })}
           </View>
-          <View style={styles.descriptionSection}>
-            <View style={styles.row}>
-              <MaterialCommunityIcons name={'human-male'} size={25} color={colors.blue} />
-              <Text style={styles.descriptionTitle}>
-                Expo Hall 7 <Text style={styles.subDescriptionTitle}>- Expo Hall 7, Singapore </Text>
-              </Text>
+          <TouchableOpacity
+            onPress={() => {
+              navigate(RouteKey.DetailScreen)
+            }}
+            activeOpacity={0.8}
+            style={styles.card}>
+            <View style={styles.cardUpperSection}>
+              <Text style={styles.titleText}>Expo Hall 7</Text>
+              <View>
+                <View style={styles.rightUpperSection}>
+                  <FontAwesome name={'dollar'} color={colors.white} size={15} />
+                  <Text style={styles.moneyText}>65.00</Text>
+                </View>
+                <View style={[styles.rightUpperSection, {marginTop: responsiveHeight(5)}]}>
+                  <EvilIcons name={'clock'} color={colors.white} size={15} />
+                  <Text style={styles.timeText}>in 7 months</Text>
+                </View>
+              </View>
             </View>
-            <View style={styles.line} />
-            <View style={styles.row}>
-              <Circle style={{marginLeft: responsiveWidth(5), backgroundColor: colors.blue}} />
-              <Text
-                style={[
-                  styles.descriptionTitle,
-                  {marginLeft: responsiveWidth(5), marginTop: responsiveHeight(-2)},
-                ]}>
-                Expo Hall 7{' '}
-                <Text style={styles.subDescriptionTitle}>
-                  - 14, Scotts Road, Orchard, Singapore, Singapore, 228213
+            <View style={styles.descriptionSection}>
+              <View>
+                <MaterialCommunityIcons name={'human-male'} size={25} color={colors.lightBlue} />
+                <View style={styles.line} />
+                <Circle style={styles.circleDestination} />
+              </View>
+              <View>
+                <Text style={[styles.descriptionTitle]}>
+                  Expo Hall 7 <Text style={styles.subDescriptionTitle}>- Expo Hall 7, Singapore </Text>
                 </Text>
-              </Text>
+                <Text style={[styles.descriptionTitle, {marginTop: responsiveHeight(50)}]}>
+                  Far East Plaza{' '}
+                  <Text style={styles.subDescriptionTitle}>
+                    - 14, Scotts Road, Orchard, Singapore, Singapore, 228213
+                  </Text>
+                </Text>
+              </View>
             </View>
-          </View>
-        </TouchableOpacity>
-      </ScreenContainer>
+          </TouchableOpacity>
+          <Circle
+            style={styles.lightning}
+            children={<MaterialCommunityIcons name="lightning-bolt" size={35} color={colors.crusta} />}
+          />
+        </ScreenContainer>
+      </LinearGradient>
     </SafeAreaView>
   )
 }
@@ -98,9 +103,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
   },
+  linearGradient: {
+    flex: 1,
+  },
   container: {
-    padding: 10,
-    backgroundColor: 'white',
+    padding: 15,
+    backgroundColor: 'transparent',
   },
   headerTab: {
     flexDirection: 'row',
@@ -163,11 +171,12 @@ const styles = StyleSheet.create({
   },
   descriptionSection: {
     marginTop: responsiveHeight(20),
+    flexDirection: 'row',
   },
   line: {
     width: responsiveWidth(3),
     height: responsiveHeight(35),
-    backgroundColor: colors.blue,
+    backgroundColor: colors.lightBlue,
     marginLeft: responsiveWidth(10),
     marginVertical: responsiveHeight(8),
   },
@@ -175,7 +184,7 @@ const styles = StyleSheet.create({
     width: responsiveWidth(18),
     aspectRatio: 1,
     borderRadius: 60,
-    backgroundColor: colors.blue,
+    backgroundColor: colors.lightBlue,
     marginLeft: responsiveWidth(2),
   },
   header: {
@@ -189,6 +198,19 @@ const styles = StyleSheet.create({
     fontSize: responsiveHeight(30),
     fontWeight: '600',
     paddingHorizontal: responsiveWidth(15),
+  },
+  lightning: {
+    position: 'absolute',
+    aspectRatio: 1,
+    backgroundColor: colors.white,
+    bottom: 30,
+    left: 20,
+  },
+  circleDestination: {
+    backgroundColor: colors.lightBlue,
+    width: responsiveWidth(18),
+    aspectRatio: 1,
+    marginLeft: responsiveWidth(3),
   },
 })
 

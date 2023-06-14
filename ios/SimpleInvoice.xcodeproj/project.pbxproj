@@ -515,6 +515,7 @@
 				EXCLUDED_ARCHS = arm64;
 				INFOPLIST_FILE = SimpleInvoice/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Base${BUNDLE_ID_SUFFIX}";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -544,6 +545,7 @@
 				EXCLUDED_ARCHS = arm64;
 				INFOPLIST_FILE = SimpleInvoice/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Base${BUNDLE_ID_SUFFIX}";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -638,6 +640,7 @@
 				EXCLUDED_ARCHS = arm64;
 				INFOPLIST_FILE = SimpleInvoice/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Base${BUNDLE_ID_SUFFIX}";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

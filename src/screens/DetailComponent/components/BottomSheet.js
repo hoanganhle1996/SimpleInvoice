@@ -1,60 +1,111 @@
-import React, {useMemo, useCallback, useRef} from 'react'
-import {StyleSheet, View, Text, TouchableOpacity} from 'react-native'
+import React, {useMemo, useCallback, useRef, useState} from 'react'
+import {StyleSheet, View, Text, TouchableOpacity, ActivityIndicator} from 'react-native'
 import BottomSheet from '@gorhom/bottom-sheet'
-import ColorInterpolation from './TextAnimation'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import {colors, responsiveHeight, responsiveWidth} from '../../../themes'
+import {colors, deviceHeight, responsiveHeight, responsiveWidth} from '../../../themes'
 import {goBack} from '../../../navigation/NavigationService'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Circle from '../../../components/Circle'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import SwipeButton from './SwipeButton'
+import Feather from 'react-native-vector-icons/Feather'
 
-function BottomSheetComponent({value, onChangeText, placeholder, style, ...rest}) {
+import Animated, {runOnJS, useAnimatedStyle, useSharedValue, withSpring} from 'react-native-reanimated'
+
+const ICON_LOCATION_POSTION_HEIGHT = deviceHeight() / 2
+
+function BottomSheetComponent({onSwipe, loading, handleLoading, onPressLocation}) {
   // ref
   const bottomSheetRef = useRef(null)
+  const [viewChange, setChangeView] = useState(null)
+  const animatedPosition = useSharedValue(0)
+  const animatedStyle = useAnimatedStyle(() => {
+    if (animatedPosition.value < 120) {
+      runOnJS(setChangeView)(true)
+    } else {
+      runOnJS(setChangeView)(false)
+    }
+    return {
+      transform: [
+        {
+          translateY: withSpring(
+            animatedPosition.value < ICON_LOCATION_POSTION_HEIGHT
+              ? ICON_LOCATION_POSTION_HEIGHT
+              : animatedPosition.value,
+            {
+              damping: 150,
+              stiffness: 400,
+            },
+          ),
+        },
+      ],
+    }
+  })
 
   // variables
-  const snapPoints = useMemo(() => ['25%', '50%', '100%'], [])
+  const snapPoints = useMemo(() => ['25%', '50%', '90%'], [])
 
   // callbacks
   const handleSheetChanges = useCallback(index => {
-    console.log('handleSheetChanges', index)
+    // TODO
   }, [])
 
-  const onPress = useCallback(() => {
+  const onPressGoBack = useCallback(() => {
     goBack()
   }, [])
 
   const CustomHandle = useCallback(
-    () => (
-      <View style={styles.handleView}>
-        <View style={styles.handleLeftSection}>
-          <Text style={styles.number}>12</Text>
-          <View style={styles.timeSection}>
-            <Text style={styles.monthsText}>December</Text>
-            <Text style={styles.serialText}>N95899</Text>
+    () =>
+      viewChange ? (
+        <View style={styles.headerCloseToTop}>
+          <View style={styles.headerContentSection}>
+            <MaterialIcons style={styles.backArrow} name={'arrow-back-ios'} size={20} />
+            <Text style={styles.serialTitleText}>LY-4b3dec</Text>
+            {loading ? <ActivityIndicator color={colors.westSide} /> : <View />}
+          </View>
+          <View style={styles.moneyHeaderSection}>
+            <FontAwesome name={'dollar'} color={colors.black} size={28} />
+            <Text style={styles.moneyTextLarge}>65.00</Text>
+            <Feather style={styles.refreshIcon} name="refresh-ccw" size={22} color={colors.lightBlue} />
           </View>
         </View>
-        <View style={styles.moneySection}>
-          <FontAwesome name={'dollar'} color={colors.white} size={22} />
-          <Text style={styles.money}>65.00</Text>
+      ) : (
+        <View style={styles.handleView}>
+          <View style={styles.handleLeftSection}>
+            <Text style={styles.number}>12</Text>
+            <View style={styles.timeSection}>
+              <Text style={styles.monthsText}>December</Text>
+              <Text style={styles.serialText}>N95899</Text>
+            </View>
+          </View>
+          <View style={styles.moneySection}>
+            <FontAwesome name={'dollar'} color={colors.white} size={22} />
+            <Text style={styles.money}>65.00</Text>
+          </View>
         </View>
-      </View>
-    ),
-    [],
+      ),
+    [viewChange, loading],
   )
 
   return (
-    <View style={[styles.container, style]}>
-      <TouchableOpacity onPress={onPress} activeOpacity={0.7} style={styles.backArrowView}>
+    <>
+      <TouchableOpacity onPress={onPressGoBack} activeOpacity={0.7} style={styles.backArrowView}>
         <MaterialIcons style={styles.backArrow} name={'arrow-back-ios'} size={20} />
       </TouchableOpacity>
+      <Animated.View style={[animatedStyle, {alignItems: 'flex-end'}]}>
+        <TouchableOpacity onPress={onPressLocation} activeOpacity={0.7} style={styles.locationIcon}>
+          <MaterialIcons name={'my-location'} size={30} />
+        </TouchableOpacity>
+      </Animated.View>
       <BottomSheet
         handleHeight={0}
         ref={bottomSheetRef}
         index={1}
         handleComponent={CustomHandle}
         snapPoints={snapPoints}
+        enableContentPanningGesture
+        enableHandlePanningGesture
+        animatedPosition={animatedPosition}
         onChange={handleSheetChanges}>
         <View style={styles.contentContainer}>
           <View style={styles.standardSection}>
@@ -79,35 +130,34 @@ function BottomSheetComponent({value, onChangeText, placeholder, style, ...rest}
                   <Text style={styles.pickupText}>Picked up</Text>
                 </Text>
                 <Text style={styles.timeText}> 6:06pm</Text>
+                <Text style={[styles.descriptionTitle, {marginTop: responsiveHeight(15)}]}>
+                  Far East Plaza
+                </Text>
+                <Text style={styles.subDescriptionTitle}>
+                  14, Scotts Road, Orchard, Singapore, Sigapore, 228213
+                </Text>
+                <Text style={styles.pickupText}>Dropped - off</Text>
               </View>
             </View>
-            {/* <View style={styles.row}>
-              <MaterialCommunityIcons name={'human-male'} size={25} color={colors.blue} />
-              <Text style={styles.descriptionTitle}>Expo Hall 7</Text>
-            </View>
-            <View style={styles.row}>
-              <View style={styles.line} />
-              <Text style={styles.location}>
-                Expo Hall 7, Singapore
-                {'\n'}
-                <Text style={styles.subDescriptionTitle}>Picked up</Text>
-              </Text>
-            </View>
-
-            <View style={styles.row}>
-              <Circle style={styles.circle} />
-              <Text
-                style={[
-                  styles.descriptionTitle,
-                  {marginLeft: responsiveWidth(5), marginTop: responsiveHeight(-2)},
-                ]}>
-                6:06pm
-              </Text>
-            </View> */}
+          </View>
+          <View style={styles.dateSection}>
+            <Text style={styles.subDescriptionTitle}>Job Date</Text>
+            <Text style={styles.dateText}>12/12/2023</Text>
+          </View>
+          <View style={styles.swipeButton}>
+            <SwipeButton
+              isLoading={loading}
+              onSwipe={() => {
+                handleLoading()
+                setTimeout(() => {
+                  onSwipe()
+                }, 1000)
+              }}
+            />
           </View>
         </View>
       </BottomSheet>
-    </View>
+    </>
   )
 }
 
@@ -128,7 +178,8 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: responsiveHeight(25),
+    marginTop: responsiveHeight(50),
+    marginLeft: responsiveWidth(5),
   },
   backArrow: {
     marginLeft: responsiveWidth(5),
@@ -177,7 +228,7 @@ const styles = StyleSheet.create({
     marginLeft: responsiveWidth(20),
     textTransform: 'uppercase',
     fontSize: 20,
-    fontWeight: '500',
+    fontWeight: '700',
     color: colors.lightBlue,
   },
   descriptionTitle: {
@@ -188,12 +239,13 @@ const styles = StyleSheet.create({
   },
   subDescriptionTitle: {
     fontSize: 18,
-    color: colors.silver,
+    color: colors.grayText,
     fontWeight: '300',
     lineHeight: responsiveHeight(25),
   },
   descriptionSection: {
     marginTop: responsiveHeight(20),
+    marginLeft: responsiveWidth(15),
   },
   line: {
     width: responsiveWidth(2.5),
@@ -241,6 +293,61 @@ const styles = StyleSheet.create({
     color: colors.lightBlue,
     marginTop: responsiveHeight(90),
     fontSize: 15,
+  },
+  dateSection: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: responsiveWidth(10),
+    marginTop: responsiveHeight(30),
+  },
+  dateText: {
+    fontSize: 18,
+    fontWeight: '600',
+  },
+  swipeButton: {
+    marginTop: responsiveHeight(30),
+  },
+  headerCloseToTop: {
+    height: responsiveHeight(160),
+    marginTop: responsiveHeight(-85),
+    backgroundColor: colors.white,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+    borderBottomWidth: 2,
+  },
+  serialTitleText: {
+    fontSize: 20,
+    fontWeight: '600',
+  },
+  moneyTextLarge: {
+    fontSize: 30,
+  },
+  headerContentSection: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    marginTop: responsiveHeight(40),
+  },
+  moneyHeaderSection: {
+    flexDirection: 'row',
+    marginTop: responsiveHeight(30),
+    alignContent: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  refreshIcon: {
+    marginLeft: responsiveWidth(20),
+  },
+  locationIcon: {
+    width: responsiveWidth(45),
+    aspectRatio: 1,
+    borderRadius: 80,
+    marginTop: responsiveHeight(-160),
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.white,
+    marginRight: responsiveWidth(20),
   },
 })
 

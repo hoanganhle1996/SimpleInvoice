@@ -6,6 +6,7 @@ import MainLayout from './src/MainLayout'
 import {SafeAreaProvider} from 'react-native-safe-area-context'
 import {Text, TextInput, LogBox} from 'react-native'
 import {injectStore} from './src/services/networking/axios'
+import {enableLatestRenderer} from 'react-native-maps'
 
 LogBox.ignoreAllLogs(true)
 Text.defaultProps = Text.defaultProps || {}
@@ -17,6 +18,7 @@ TextInput.defaultProps = {
 }
 
 injectStore(store)
+enableLatestRenderer()
 
 function App() {
   return (

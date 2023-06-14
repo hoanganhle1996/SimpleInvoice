@@ -22,7 +22,7 @@ function MyTabBar({state, descriptors, navigation}) {
 
         const isFocused = state.index === index
 
-        const colorPressed = isFocused ? colors.blue : colors.darkGray
+        const colorPressed = isFocused ? colors.lightBlue : colors.darkGray
 
         const onPress = () => {
           const event = navigation.emit({
