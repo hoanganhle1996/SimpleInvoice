@@ -10,7 +10,7 @@ import Animated, {
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated'
-import {colors, responsiveHeight, responsiveWidth} from '../../../themes'
+import {colors, responsiveHeight} from '../../../themes'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const PADDING_WIDTH = 20
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   swipeButton: {
     position: 'absolute',
     left: 5,
-    width: responsiveWidth(52),
+    width: responsiveHeight(52),
     aspectRatio: 1,
     borderRadius: 60,
     zIndex: 3,

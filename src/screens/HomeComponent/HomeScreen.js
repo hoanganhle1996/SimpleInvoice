@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from 'react'
 import ScreenContainer from '../../components/ScreenContainer'
-import {StyleSheet, View, Text, TouchableOpacity, SafeAreaView} from 'react-native'
+import {StyleSheet, View, Text, TouchableOpacity, SafeAreaView, Platform} from 'react-native'
 import {responsiveHeight, colors, responsiveWidth} from '../../themes'
 import RouteKey from '../../navigation/RouteKey'
 import HeaderTab from '../../components/HeaderTab'
@@ -24,7 +24,7 @@ const HomeScreen = () => {
       <Text style={styles.headerText}>Jobs</Text>
       <LinearGradient
         colors={['transparent', 'transparent', '#ffffff', '#ffffff', '#ffffff', '#7F7F7F']}
-        locations={[0, 0.35, 0.35, 0.65, 0.65]}
+        locations={Platform.OS === 'ios' ? [0, 0.35, 0.35, 0.65, 0.65] : [0.3, 0, 0.65, 0.65, 0.75, 0.95]}
         style={styles.linearGradient}>
         <ScreenContainer style={styles.container}>
           <View style={styles.headerTab}>

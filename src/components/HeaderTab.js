@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   titleText: {
     padding: responsiveHeight(15),
     color: colors.grayText,
-    fontSize: 18,
+    fontSize: responsiveHeight(18),
   },
 })
 
