@@ -1,9 +1,10 @@
 import React, {useCallback, useRef, useState} from 'react'
 import {View, StyleSheet} from 'react-native'
-import MapView, {Marker} from 'react-native-maps'
+import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps'
 import BottomSheetComponent from './components/BottomSheet'
 import BottomSheetModalComponent from './components/BottomSheetModal'
 import MapViewDirections from 'react-native-maps-directions'
+import RNConfig from 'react-native-config'
 
 const DetailScreen = () => {
   const mapRef = useRef(null)
@@ -36,7 +37,7 @@ const DetailScreen = () => {
       longitudeDelta: 0.0421,
     }
     mapRef.current.animateToRegion(initialRegion, 1000)
-  }, [])
+  }, [coordinates])
 
   return (
     <View style={styles.container}>
@@ -46,7 +47,7 @@ const DetailScreen = () => {
         showsTraffic={false}
         showsUserLocation={true}
         loadingEnabled={true}
-        provider={'google'}
+        provider={PROVIDER_GOOGLE}
         initialRegion={{
           latitude: coordinates[0].latitude,
           longitude: coordinates[0].longitude,
@@ -56,7 +57,7 @@ const DetailScreen = () => {
         <MapViewDirections
           origin={coordinates[0]}
           destination={coordinates[1]}
-          apikey={'AIzaSyDPu5If5M9prVsNRtTjGn3WeVNiurF73Fo'} // insert your API Key here
+          apikey={RNConfig.GOOGLE_API_KEY} // insert your API Key here
           strokeWidth={4}
           strokeColor="#111111"
         />

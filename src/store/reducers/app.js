@@ -17,11 +17,6 @@ const appSlice = createSlice({
     [APP_CONSTANTS_ACTIONS.GET_SETTING_APP_ACTIONS.HANDLER]: (state, action) => {},
     [APP_CONSTANTS_ACTIONS.GET_SETTING_APP_ACTIONS.SUCCESS]: (state, action) => {},
     [APP_CONSTANTS_ACTIONS.GET_SETTING_APP_ACTIONS.FAILURE]: (state, action) => {},
-    [APP_CONSTANTS_ACTIONS.GET_LIST_INVOICE.HANDLER]: (state, action) => {},
-    [APP_CONSTANTS_ACTIONS.GET_LIST_INVOICE.SUCCESS]: (state, action) => {
-      state.invoiceData = action.payload
-    },
-    [APP_CONSTANTS_ACTIONS.GET_LIST_INVOICE.FAILURE]: (state, action) => {},
     getSettings: (state, action) => {},
     setAppStack: (state, action) => {
       state.appState = action.payload
@@ -41,9 +36,6 @@ export const appActions = {
   setSettingAppHandle: appSlice.actions[APP_CONSTANTS_ACTIONS.GET_SETTING_APP_ACTIONS.HANDLER],
   setSettingAppSuccess: appSlice.actions[APP_CONSTANTS_ACTIONS.GET_SETTING_APP_ACTIONS.SUCCESS],
   setSettingAppFailure: appSlice.actions[APP_CONSTANTS_ACTIONS.GET_SETTING_APP_ACTIONS.FAILURE],
-  getInvoiceListHandle: appSlice.actions[APP_CONSTANTS_ACTIONS.GET_LIST_INVOICE.HANDLER],
-  getInvoiceListSuccess: appSlice.actions[APP_CONSTANTS_ACTIONS.GET_LIST_INVOICE.SUCCESS],
-  getInvoiceListFailure: appSlice.actions[APP_CONSTANTS_ACTIONS.GET_LIST_INVOICE.FAILURE],
 }
 
 export default appSlice.reducer

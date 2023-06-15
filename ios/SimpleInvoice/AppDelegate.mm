@@ -3,6 +3,7 @@
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import "RNCConfig.h"
 
 #import <React/RCTAppSetupUtils.h>
 #import <CodePush/CodePush.h>
@@ -33,8 +34,9 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  NSString *mapKey = [RNCConfig envFor:@"GOOGLE_API_KEY"];
   RCTAppSetupPrepareApp(application);
-  [GMSServices provideAPIKey:@"AIzaSyDPu5If5M9prVsNRtTjGn3WeVNiurF73Fo"];
+  [GMSServices provideAPIKey:mapKey];
 
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
 

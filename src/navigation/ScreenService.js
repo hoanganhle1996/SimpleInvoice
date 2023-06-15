@@ -3,7 +3,6 @@ import {LoginScreen} from '../screens'
 // Screen Import
 import DetailScreen from '../screens/DetailComponent/DetailScreen'
 import HomeScreen from '../screens/HomeComponent/HomeScreen'
-import CreateInvoiceScreen from '../screens/CreateInvoiceComponent/CreateInvoiceScreen'
 import {Text, StyleSheet} from 'react-native'
 import {responsiveHeight, responsiveWidth} from '../themes/metrics'
 
@@ -16,8 +15,6 @@ export const screenMatch = screen => {
       return LoginScreen
     case RouteKey.HomeScreen:
       return HomeScreen
-    case RouteKey.CreateInvoiceScreen:
-      return CreateInvoiceScreen
     default:
       return ''
   }

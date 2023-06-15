@@ -4,7 +4,6 @@ export default {
   SplashScreen: 'SplashScreen',
   LoginScreen: 'LoginScreen',
   HomeScreen: 'Home',
-  CreateInvoiceScreen: 'CreateInvoiceScreen',
   CoinScreen: 'Coin',
   JobScreen: 'Job',
   MenuScreen: 'Menu',

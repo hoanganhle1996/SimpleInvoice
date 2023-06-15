@@ -3,7 +3,6 @@ import {appActions} from '../reducers'
 import RouteKey from '../../navigation/RouteKey'
 import {getString} from '../../services/mmkv/storage'
 import {TOKEN_KEY} from '../../constants'
-import {getInvoiceList} from '../../services/api/api'
 
 function* getAppSettingSaga() {
   try {
@@ -17,19 +16,4 @@ function* getAppSettingSaga() {
   }
 }
 
-function* getInvoiceListSaga(action) {
-  try {
-    const res = yield getInvoiceList(action.payload)
-    if (res?.data?.length > 0) {
-      yield put(appActions.getInvoiceListSuccess(res))
-    }
-  } catch (e) {
-    yield put(appActions.getInvoiceListFailure(e))
-  } finally {
-  }
-}
-
-export default [
-  takeLatest(appActions.getSettings.type, getAppSettingSaga),
-  takeLatest(appActions.getInvoiceListHandle, getInvoiceListSaga),
-]
+export default [takeLatest(appActions.getSettings.type, getAppSettingSaga)]

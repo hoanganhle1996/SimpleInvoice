@@ -12,7 +12,7 @@ import Feather from 'react-native-vector-icons/Feather'
 
 import Animated, {runOnJS, useAnimatedStyle, useSharedValue, withSpring} from 'react-native-reanimated'
 
-const ICON_LOCATION_POSTION_HEIGHT = deviceHeight() / 2
+const ICON_LOCATION_POSITION_HEIGHT = deviceHeight() / 2
 
 function BottomSheetComponent({onSwipe, loading, handleLoading, onPressLocation}) {
   // ref
@@ -29,8 +29,8 @@ function BottomSheetComponent({onSwipe, loading, handleLoading, onPressLocation}
       transform: [
         {
           translateY: withSpring(
-            animatedPosition.value < ICON_LOCATION_POSTION_HEIGHT
-              ? ICON_LOCATION_POSTION_HEIGHT
+            animatedPosition.value < ICON_LOCATION_POSITION_HEIGHT
+              ? ICON_LOCATION_POSITION_HEIGHT
               : animatedPosition.value,
             {
               damping: 150,
@@ -45,14 +45,16 @@ function BottomSheetComponent({onSwipe, loading, handleLoading, onPressLocation}
   // variables
   const snapPoints = useMemo(() => ['25%', '50%', '90%'], [])
 
-  // callbacks
-  const handleSheetChanges = useCallback(index => {
-    // TODO
-  }, [])
-
   const onPressGoBack = useCallback(() => {
     goBack()
   }, [])
+
+  const onHandleSwipe = useCallback(() => {
+    handleLoading()
+    setTimeout(() => {
+      onSwipe()
+    }, 1000)
+  }, [handleLoading, onSwipe])
 
   const CustomHandle = useCallback(
     () =>
@@ -105,8 +107,7 @@ function BottomSheetComponent({onSwipe, loading, handleLoading, onPressLocation}
         snapPoints={snapPoints}
         enableContentPanningGesture
         enableHandlePanningGesture
-        animatedPosition={animatedPosition}
-        onChange={handleSheetChanges}>
+        animatedPosition={animatedPosition}>
         <View style={styles.contentContainer}>
           <View style={styles.standardSection}>
             <Circle
@@ -145,15 +146,7 @@ function BottomSheetComponent({onSwipe, loading, handleLoading, onPressLocation}
             <Text style={styles.dateText}>12/12/2023</Text>
           </View>
           <View style={styles.swipeButton}>
-            <SwipeButton
-              isLoading={loading}
-              onSwipe={() => {
-                handleLoading()
-                setTimeout(() => {
-                  onSwipe()
-                }, 1000)
-              }}
-            />
+            <SwipeButton isLoading={loading} onSwipe={onHandleSwipe} />
           </View>
         </View>
       </BottomSheet>
