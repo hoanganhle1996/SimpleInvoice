@@ -1,7 +1,6 @@
 import RouteKey from './RouteKey'
 import {LoginScreen} from '../screens'
 // Screen Import
-import DetailScreen from '../screens/DetailComponent/DetailScreen'
 import HomeScreen from '../screens/HomeComponent/HomeScreen'
 import {Text, StyleSheet} from 'react-native'
 import {responsiveHeight, responsiveWidth} from '../themes/metrics'
@@ -9,8 +8,6 @@ import {responsiveHeight, responsiveWidth} from '../themes/metrics'
 export const screenMatch = screen => {
   switch (screen) {
     // Screen Match
-    case RouteKey.DetailScreen:
-      return DetailScreen
     case RouteKey.LoginScreen:
       return LoginScreen
     case RouteKey.HomeScreen:
@@ -23,7 +20,6 @@ export const screenMatch = screen => {
 export const optionsMatch = screen => {
   switch (screen) {
     // Screen Options
-    case RouteKey.DetailScreen:
     case RouteKey.HomeScreen:
       return {
         headerStyle: {

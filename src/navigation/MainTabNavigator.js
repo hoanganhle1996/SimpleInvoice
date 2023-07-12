@@ -16,8 +16,8 @@ function MainTabNavigation() {
       tabBar={props => <MyTabBar {...props} />}>
       <Tab.Screen
         name={RouteKey.HomeScreen}
-        component={screenMatch(RouteKey.LoginScreen)}
-        options={optionsMatch(RouteKey.LoginScreen)}
+        component={screenMatch(RouteKey.HomeScreen)}
+        options={optionsMatch(RouteKey.HomeScreen)}
       />
       <Tab.Screen
         name={RouteKey.CoinScreen}
@@ -27,7 +27,7 @@ function MainTabNavigation() {
       <Tab.Screen
         name={RouteKey.JobScreen}
         component={HomeNavigator}
-        options={optionsMatch(RouteKey.HomeScreen)}
+        options={optionsMatch(RouteKey.JobScreen)}
       />
       <Tab.Screen
         name={RouteKey.MenuScreen}

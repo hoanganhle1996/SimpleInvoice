@@ -1,6 +1,5 @@
 export default {
   /** Screen */
-  DetailScreen: 'DetailScreen',
   SplashScreen: 'SplashScreen',
   LoginScreen: 'LoginScreen',
   HomeScreen: 'Home',
