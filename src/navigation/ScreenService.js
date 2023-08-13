@@ -21,6 +21,10 @@ export const screenMatch = screen => {
 export const optionsMatch = screen => {
   switch (screen) {
     // Screen Options
+    case RouteKey.LoginScreen:
+      return {
+        header: () => null,
+      }
     case RouteKey.HomeScreen:
     case RouteKey.HomeStack:
       return {
