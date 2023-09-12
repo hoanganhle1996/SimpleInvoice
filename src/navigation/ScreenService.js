@@ -27,6 +27,8 @@ export const optionsMatch = screen => {
         headerLeft: null,
       }
     default:
-      return {}
+      return {
+        headerShown: false,
+      }
   }
 }

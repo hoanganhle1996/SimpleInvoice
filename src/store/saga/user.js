@@ -5,27 +5,13 @@ import Toast from '../../components/Toast'
 import {login, getUserProfile} from '../../services/api/api'
 import {setHeader} from '../../services/networking/axios'
 import {setObject} from '../../services/mmkv/storage'
-import {
-  USER_INFO_KEY,
-  HEADER_AUTHENTICATION,
-  ORG_TOKEN,
-  GRANT_TYPE,
-  SCOPE,
-  USER_NAME,
-  PASSWORD,
-} from '../../constants'
+import {USER_INFO_KEY, HEADER_AUTHENTICATION, ORG_TOKEN} from '../../constants'
 
 function* userLoginSaga(action) {
   try {
+    console.log('action', action)
     yield put(appActions.setShowGlobalIndicator(true))
-    const body = {
-      client_id: action.payload.id,
-      client_secret: action.payload.password,
-      grant_type: GRANT_TYPE,
-      scope: SCOPE,
-      username: USER_NAME,
-      password: PASSWORD,
-    }
+    const body = action?.payload?.data ?? {}
     const res = yield login(body)
     if (res?.access_token) {
       setHeader(HEADER_AUTHENTICATION, `Bearer ${res.access_token}`)

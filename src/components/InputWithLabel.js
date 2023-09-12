@@ -2,6 +2,7 @@ import {Text, StyleSheet, View} from 'react-native'
 import React from 'react'
 import {responsiveHeight} from '../themes/metrics'
 import TextInputView from './TextInputView'
+import {colors} from '../themes'
 
 const InputWithLabel = props => {
   const {title, style, onChangeText, value, ...rest} = props
@@ -20,18 +21,20 @@ const InputWithLabel = props => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: responsiveHeight(10),
+    marginBottom: responsiveHeight(20),
     width: '100%',
   },
   title: {
     marginBottom: responsiveHeight(5),
     fontSize: responsiveHeight(16),
     fontWeight: '500',
+    color: colors.lightGray,
   },
   textInputStyle: {
     borderWidth: 1,
     height: responsiveHeight(40),
     borderRadius: 5,
+    borderColor: colors.border,
   },
 })
 

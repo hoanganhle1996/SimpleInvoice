@@ -1,9 +1,11 @@
 const baseColor = {
-  primary: '#65c8c6',
+  primary: '#3f8c48',
   black: '#1F1F1F',
   white: '#ffffff',
   gray: '#454545',
   red: '#ff0009',
+  border: '#D4D4D4',
+  lightGray: '#b4b4b6',
 }
 
 const colors = {
